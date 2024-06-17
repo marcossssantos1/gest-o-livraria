@@ -7,11 +7,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "tb-livros")
+@Table(name = "tb_livros")
 public class Livro {
 
 	@Id
@@ -26,11 +28,28 @@ public class Livro {
 	@Column(name = "numero-paginas", nullable = false)
 	private int numeroPaginas;
 
+	@ManyToOne
+	@JoinColumn(name = "id_genero")
+	private Genero genero;
+
+	public Livro() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Livro(Long id, @NotBlank String nome, @NotBlank String introducao, int numeroPaginas) {
 		this.id = id;
 		this.nome = nome;
 		this.introducao = introducao;
 		this.numeroPaginas = numeroPaginas;
+	}
+
+	public Livro(Long id, @NotBlank String nome, @NotBlank String introducao, int numeroPaginas, Genero genero) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.introducao = introducao;
+		this.numeroPaginas = numeroPaginas;
+		this.genero = genero;
 	}
 
 	public Long getId() {
@@ -63,6 +82,14 @@ public class Livro {
 
 	public void setNumeroPaginas(int numeroPaginas) {
 		this.numeroPaginas = numeroPaginas;
+	}
+
+	public Genero getGenero() {
+		return genero;
+	}
+
+	public void setGenero(Genero genero) {
+		this.genero = genero;
 	}
 
 	@Override

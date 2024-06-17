@@ -1,16 +1,19 @@
 package com.marcos.livraria_sistemas.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "tb-genero")
+@Table(name = "tb_genero")
 public class Genero {
 
 	@Id
@@ -18,6 +21,9 @@ public class Genero {
 	private Long id;
 	@NotBlank
 	private String nome;
+	
+	@OneToMany(mappedBy = "genero")
+	private List<Livro> livros = new ArrayList<>();
 
 	public Genero() {
 	}

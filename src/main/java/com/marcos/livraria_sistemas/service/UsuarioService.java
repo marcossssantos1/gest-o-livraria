@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.marcos.livraria_sistemas.exceptions.CamposInvalidosException;
 import com.marcos.livraria_sistemas.model.Usuario;
 import com.marcos.livraria_sistemas.repository.UsuarioRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UsuarioService {
@@ -17,10 +18,12 @@ public class UsuarioService {
 
 	public Usuario create(Usuario usuario) {
 		return repository.save(usuario);
+
 	}
 
 	public Usuario findById(Long id) {
-		return repository.findById(id).orElseThrow(() -> new RuntimeException("Erro ao buscar usuario com o id! "));
+		return repository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("Erro ao buscar usuario com o id! "));
 	}
 
 	public List<Usuario> findAll() {
@@ -31,14 +34,14 @@ public class UsuarioService {
 		if (id != null) {
 			repository.deleteById(id);
 		} else {
-			throw new RuntimeException("Id inexistente na base dados");
+			throw new EntityNotFoundException("Id inexistente na base dados");
 		}
 		return null;
 	}
 
 	public Usuario update(Long id, Usuario usuario) {
 		Usuario usuarios = repository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Erro ao buscar usuario com o id! "));
+				.orElseThrow(() -> new EntityNotFoundException("Erro ao buscar usuario com o id! "));
 		usuarios.setNome(usuario.getNome());
 		usuarios.setEmail(usuario.getEmail());
 		usuarios.setTelefone(usuario.getTelefone());

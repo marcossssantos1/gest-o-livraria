@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.marcos.livraria_sistemas.model.Livro;
 import com.marcos.livraria_sistemas.repository.LivroRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class LivroService {
 
@@ -19,7 +21,7 @@ public class LivroService {
 	}
 
 	public Livro findById(Long id) {
-		return repository.findById(id).orElseThrow(() -> new RuntimeException("Erro ao buscar livro com o id! "));
+		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Erro ao buscar livro com o id! "));
 	}
 
 	public List<Livro> findAll() {
@@ -30,14 +32,14 @@ public class LivroService {
 		if (id != null) {
 			repository.deleteById(id);
 		} else {
-			throw new RuntimeException("Id inexistente na base dados");
+			throw new EntityNotFoundException("Id inexistente na base dados");
 		}
 		return null;
 	}
 
 	public Livro update(Long id, Livro livro) {
 		Livro livros = repository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Erro ao buscar livro com o id! "));
+				.orElseThrow(() -> new EntityNotFoundException("Erro ao buscar livro com o id! "));
 		livros.setNome(livro.getNome());
 		livros.setIntroducao(livro.getIntroducao());
 		livros.setNumeroPaginas(livro.getNumeroPaginas());

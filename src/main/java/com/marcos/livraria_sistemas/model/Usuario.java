@@ -14,17 +14,17 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "tb-usuarios")
+@Table(name = "tb_usuarios")
 public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank
-	@Column(name = "nme")
+	@Column(name = "nome")
 	private String nome;
 	@NotBlank
-	@Column(name = "email")
+	@Column(name = "email", unique = true)
 	private String email;
 	@NotBlank
 	@Column(name = "telefone")

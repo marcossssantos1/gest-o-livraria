@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.marcos.livraria_sistemas.model.Genero;
 import com.marcos.livraria_sistemas.repository.GeneroRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class GeneroService {
 
@@ -19,7 +21,7 @@ public class GeneroService {
 	}
 
 	public Genero findById(Long id) {
-		return repository.findById(id).orElseThrow(() -> new RuntimeException("Erro ao buscar genero com o id! "));
+		return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Erro ao buscar genero com o id! "));
 	}
 
 	public List<Genero> findAll() {
@@ -30,14 +32,14 @@ public class GeneroService {
 		if (id != null) {
 			repository.deleteById(id);
 		} else {
-			throw new RuntimeException("Id inexistente na base dados");
+			throw new EntityNotFoundException("Id inexistente na base dados");
 		}
 		return null;
 	}
 
 	public Genero update(Long id, Genero genero) {
 		Genero gen = repository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Erro ao buscar genero com o id! "));
+				.orElseThrow(() -> new EntityNotFoundException("Erro ao buscar genero com o id! "));
 		gen.setNome(genero.getNome());
 		return repository.save(gen);
 	}

@@ -1,5 +1,7 @@
 package com.marcos.livraria_sistemas.dto;
 
+import com.marcos.livraria_sistemas.model.Genero;
+
 import jakarta.validation.constraints.NotBlank;
 
 public class LivroResponseDto {
@@ -10,6 +12,8 @@ public class LivroResponseDto {
 	private String introducao;
 	private int numeroPaginas;
 
+	private Genero genero;
+
 	public LivroResponseDto() {
 	}
 
@@ -18,6 +22,14 @@ public class LivroResponseDto {
 		this.nome = nome;
 		this.introducao = introducao;
 		this.numeroPaginas = numeroPaginas;
+	}
+
+	public LivroResponseDto(@NotBlank String nome, @NotBlank String introducao, int numeroPaginas, Genero genero) {
+		super();
+		this.nome = nome;
+		this.introducao = introducao;
+		this.numeroPaginas = numeroPaginas;
+		this.genero = genero;
 	}
 
 	public String getNome() {
@@ -42,6 +54,14 @@ public class LivroResponseDto {
 
 	public void setNumeroPaginas(int numeroPaginas) {
 		this.numeroPaginas = numeroPaginas;
+	}
+
+	public Genero getGenero() {
+		return genero;
+	}
+
+	public void setGenero(Genero genero) {
+		this.genero = genero;
 	}
 
 }
